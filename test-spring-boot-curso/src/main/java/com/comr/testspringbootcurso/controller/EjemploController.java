@@ -3,12 +3,15 @@ package com.comr.testspringbootcurso.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -152,6 +155,22 @@ public class EjemploController {
 		return mav;
 	}
 	
+	@PostMapping("/registrar_persona2")
+	public ModelAndView addPersona2(@Valid @ModelAttribute("persona") Persona persona, BindingResult bindingResult) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		LOG.info("Validar si la información es correcta por medio de @valid");
+		if(bindingResult.hasErrors()) {
+			LOG.info("Contiene info no valida");
+			mav.setViewName(FORM_PERSONA_VIEW_NAME);
+		}else {
+			mav.setViewName(VIEW_CON_OBJECT_VIEW_NAME);
+			mav.addObject("persona", persona);
+			LOG.info("alta de persona View:" + VIEW_CON_OBJECT_VIEW_NAME + ", PARAMETROS:" + persona);
+		}
+				
+		return mav;
+	}
+			
 	@PostMapping("/test_internal_error")
 	public ModelAndView showInternalError() {
 		ModelAndView mav = new ModelAndView(VIEW_CON_OBJECT_VIEW_NAME);
@@ -159,4 +178,6 @@ public class EjemploController {
 		int i = 10 /0;
 		return mav;
 	}
+	
+	
 }
