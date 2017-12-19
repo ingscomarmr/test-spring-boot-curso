@@ -1,0 +1,3 @@
+#modificar el banner para que no tome el default
+banner:
+  location: classpath:banner-omr.txt # Banner file location.

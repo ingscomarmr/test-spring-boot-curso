@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>VIEW CON COLLECTION</title>
+</head>
+<body>
+	<h3>Personas en mi familia</h3>
+	<br/>
+	<table>
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Edad</th>
+			</tr>
+		</thead>
+		<tbody th:each="p : ${personas}">
+			<tr>
+				<td th:text="${p.nombre}"></td>
+				<td th:text="${p.edad}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
