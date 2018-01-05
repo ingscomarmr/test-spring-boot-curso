@@ -39,6 +39,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- PARA CONECTAR BASE DE DATOS Y JPA -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>			
+		</dependency>	
+					
+		<dependency>
+		  <groupId>org.postgresql</groupId>
+		  <artifactId>postgresql</artifactId>
+		  <version>9.4-1206-jdbc42</version>
+		</dependency> 
+						
 	</dependencies>
 
 	<build>

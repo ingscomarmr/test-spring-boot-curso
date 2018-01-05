@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>CURSOS</title>
+
+<style>
+.center {
+    margin: auto;
+    width: 60%;
+    border: 3px solid red;
+    padding: 10px;
+}
+.titulo{
+	background-color:red;
+	color: white;
+}
+</style>
+
+</head>
+<body>	
+	<div id="container">
+		<div id="lista_cursos" class="center">
+			<a th:href="@{/cursos/vercurso(id=0)}">Agregar nuevo</a>
+			<table style="width: 100%;">
+				<thead>
+					<tr>
+						<th class="titulo">Ver/Eliminar</th>
+						<th class="titulo">Nombre</th>
+						<th class="titulo">Descripci&oacute;n</th>
+						<th class="titulo">Horas</th>
+						<th class="titulo">Precio</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="c : ${cursos}">
+						<td><a th:href="@{/cursos/vercurso(id=${c.cursoId})}">Ver</a> / <a th:href="@{/cursos/removecurso(id=${c.cursoId})}">Eliminar</a></td>
+						<td><span th:text="${c.nombre}">Nombre</span></td>
+						<td><span th:text="${c.descripcion}">Descripci&oacute;n</span></td>
+						<td><span th:text="${c.horasCurso}">Horas</span></td>
+						<td>$<span th:text="${c.precio}">Precio</span></td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+	</div>
+	
+</body>
+</html>
