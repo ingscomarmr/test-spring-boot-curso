@@ -3,13 +3,14 @@ package com.comr.testspringbootcurso.service;
 import java.util.List;
 
 import com.comr.testspringbootcurso.entity.Curso;
+import com.comr.testspringbootcurso.model.CursoModel;
 
 public interface CursoServicio {
 
-	public abstract List<Curso> getAllCursosList();
-	public abstract Curso save(Curso c);
+	public abstract List<CursoModel> getAllCursosList();
+	public abstract CursoModel save(CursoModel c);
 	public abstract void remove(int id);
-	public abstract Curso get(int id);
-	public abstract Curso getByNombre(String nombre);
+	public abstract CursoModel get(int id);
+	public abstract CursoModel getByNombre(String nombre);
 	
 }

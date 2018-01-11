@@ -15,6 +15,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.comr.testspringbootcurso.entity.Curso;
+import com.comr.testspringbootcurso.model.CursoModel;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -33,10 +34,10 @@ public class CursoServicioTest {
 	@Rollback(value=false)
 	public void guardarCurso() {
 		LOG.info("# Guardar el curso php test");
-		Curso c = cursoServicio.getByNombre("php test");
+		CursoModel c = cursoServicio.getByNombre("php test");
 		
 		if(c == null || c.getCursoId() <= 0) {
-			c = new Curso(0,"php test","Curso de php",120,10);			
+			c = new CursoModel(0,"php test","Curso de php",120,10);			
 		}else {
 			c.setHorasCurso(c.getHorasCurso() + 1);
 		}
@@ -51,7 +52,7 @@ public class CursoServicioTest {
 	@Ignore
 	@Test		
 	public void buscarCurso() {
-		Curso c = cursoServicio.getByNombre(NAME_CURSO);
+		CursoModel c = cursoServicio.getByNombre(NAME_CURSO);
 		LOG.info("#Curso encontrado por nombre:" + c);						
 		assertTrue(c.getCursoId() > 0);
 	}
@@ -60,7 +61,7 @@ public class CursoServicioTest {
 	@Test	
 	@Rollback(value=false)
 	public void deleteCurso() {
-		Curso c = cursoServicio.getByNombre(NAME_CURSO);
+		CursoModel c = cursoServicio.getByNombre(NAME_CURSO);
 		LOG.info("#Curso encontrado por nombre:" + c);
 		if(c != null && c.getCursoId() > 0) {
 			cursoServicio.remove(c.getCursoId());			

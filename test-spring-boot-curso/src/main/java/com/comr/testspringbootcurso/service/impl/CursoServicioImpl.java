@@ -1,5 +1,6 @@
 package com.comr.testspringbootcurso.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.comr.testspringbootcurso.converter.CursoConverter;
 import com.comr.testspringbootcurso.entity.Curso;
+import com.comr.testspringbootcurso.model.CursoModel;
 import com.comr.testspringbootcurso.repository.CursoJpaRepository;
 import com.comr.testspringbootcurso.service.CursoServicio;
 
@@ -22,16 +25,27 @@ public class CursoServicioImpl implements CursoServicio{
 	@Qualifier("cursoJpaRepository")
 	CursoJpaRepository cursoJpaRepository;
 	
+	@Autowired
+	@Qualifier("cursoConverter")
+	CursoConverter cursoConverter;
+	
 	@Override
-	public List<Curso> getAllCursosList() {
+	public List<CursoModel> getAllCursosList() {
 		LOG.info("OBTENER TODOS LOS CURSOS");
-		return cursoJpaRepository.findAll();
+		List<Curso> cList = cursoJpaRepository.findAll(); 
+		List<CursoModel> cmList= new ArrayList<CursoModel>();
+		for (Curso curso : cList) {
+			cmList.add(cursoConverter.entityToModel(curso));
+		}
+		return cmList;
 	}
 
 	@Override
-	public Curso save(Curso c) {
-		LOG.info("GUARDAR EL CURSO:" + (c!=null? c.toString() : "null"));
-		return cursoJpaRepository.save(c);
+	public CursoModel save(CursoModel cm) {
+		LOG.info("GUARDAR EL CURSO:" + (cm!=null? cm.toString() : "null"));
+		Curso curso = cursoConverter.modelToEnity(cm);
+		curso = cursoJpaRepository.save(curso);
+		return cursoConverter.entityToModel(curso);
 	}
 
 	@Override
@@ -41,15 +55,17 @@ public class CursoServicioImpl implements CursoServicio{
 	}
 
 	@Override
-	public Curso get(int id) {
+	public CursoModel get(int id) {
 		LOG.info("BUSCAR EL CURSO ID:" + id);
-		return cursoJpaRepository.findByCursoId(id);
+		CursoModel cm = cursoConverter.entityToModel(cursoJpaRepository.findByCursoId(id));
+		return cm;
 	}
 
 	@Override
-	public Curso getByNombre(String nombre) {
+	public CursoModel getByNombre(String nombre) {
 		LOG.info("BUSCAR EL CURSO POR NOMBRE:" + nombre);
-		return cursoJpaRepository.findByNombre(nombre);
+		return cursoConverter.entityToModel(cursoJpaRepository.findByNombre(nombre));
+				
 	}
 	
 

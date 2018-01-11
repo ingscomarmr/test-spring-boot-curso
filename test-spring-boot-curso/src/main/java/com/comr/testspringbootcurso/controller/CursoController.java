@@ -7,17 +7,15 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.comr.testspringbootcurso.entity.Curso;
+import com.comr.testspringbootcurso.model.CursoModel;
 import com.comr.testspringbootcurso.service.CursoServicio;
 
 @Controller
@@ -49,7 +47,7 @@ public class CursoController {
 		ModelAndView mav = new ModelAndView(CURSOS_VIEW);
 		LOG.info("#CALL verCurso: VER CURSO " + idCurso);
 		
-		Curso c = new Curso(); 
+		CursoModel c = new CursoModel(); 
 		
 		if(idCurso > 0) {
 			c = cursoServicio.get(idCurso);
@@ -60,7 +58,7 @@ public class CursoController {
 	}
 	
 	@PostMapping("/savecurso")
-	public String saveCurso(@Valid @ModelAttribute("curso") Curso c, BindingResult br) {		
+	public String saveCurso(@Valid @ModelAttribute("curso") CursoModel c, BindingResult br) {		
 		LOG.info("#CALL saveCurso: GUARDAR CURSO");
 		if(br.hasErrors()) {
 			return CURSOS_VIEW;
