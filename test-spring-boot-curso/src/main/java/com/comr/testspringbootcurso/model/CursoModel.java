@@ -6,29 +6,30 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class CursoModel {
-	
+
 	private int cursoId;
-	
+
 	@NotNull
-	@Size(min=4, max=150)
-	@Column(name="nombre")
+	@Size(min = 4, max = 150)
+	@Column(name = "nombre")
 	private String nombre;
-	
+
 	@NotNull
-	@Size(min=4, max=300)
-	@Column(name="descripcion")
+	@Size(min = 4, max = 300)
+	@Column(name = "descripcion")
 	private String descripcion;
-	
+
 	@Min(1)
-	@Column(name="precio")
+	@Column(name = "precio")
 	private double precio;
-	
+
 	@Min(1)
-	@Column(name="horas_curso")
+	@Column(name = "horas_curso")
 	private int horasCurso;
-	
-	public CursoModel() {}
-	
+
+	public CursoModel() {
+	}
+
 	public CursoModel(int cursoId, String nombre, String descripcion, double precio, int horasCurso) {
 		super();
 		this.cursoId = cursoId;
@@ -83,6 +84,5 @@ public class CursoModel {
 	public void setHorasCurso(int horasCurso) {
 		this.horasCurso = horasCurso;
 	}
-	
-	
+
 }
