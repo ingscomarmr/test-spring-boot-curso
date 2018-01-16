@@ -1,6 +1,5 @@
 package com.comr.testspringbootcurso.repository;
 
-import java.awt.geom.QuadCurve2D;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.comr.testspringbootcurso.entity.Curso;
 import com.comr.testspringbootcurso.entity.QCurso;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 
 //este elemento se utiliza cuando se desea realizar querys complejos que JpaRepository se vuelve dificil de usar
@@ -43,4 +43,27 @@ public class CursoQuerysDSLRepository {
 				.fetch();
 	}
 	
+	//Query utilizado para buscar cursos que sea menos o igual al precio que tengo y que inicie con el nombre
+	public List<Curso> findCursosByNombreHorasPrecio(String nombre, int horas, double precio) {
+		JPAQuery<Curso> cursoQuery = new JPAQuery<Curso>(em);
+		
+		BooleanBuilder bb = new BooleanBuilder();
+		
+		if(nombre != null && !nombre.isEmpty() && !nombre.equals("")) {
+			bb.and(qCurso.nombre.contains(nombre));
+		}
+		
+		if(horas > 0) {
+			bb.and(qCurso.horasCurso.eq(horas));
+		}
+		if(precio > 0) {
+			bb.and(qCurso.precio.eq(precio));
+		}
+		
+		return cursoQuery.select(qCurso)
+				.from(qCurso)
+				.where(bb)
+				.orderBy(qCurso.nombre.asc(), qCurso.precio.asc())
+				.fetch();
+	}
 }

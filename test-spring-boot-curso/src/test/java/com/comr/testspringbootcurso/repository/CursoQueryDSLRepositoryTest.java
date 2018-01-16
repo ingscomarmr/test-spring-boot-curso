@@ -39,6 +39,7 @@ private static final Log LOG = LogFactory.getLog(CursoQueryDSLRepositoryTest.cla
 		
 	}
 	
+	@Ignore
 	@Test
 	public void testQueryByPrecioAndNombreContain() {
 		String nombre = "and";
@@ -50,6 +51,23 @@ private static final Log LOG = LogFactory.getLog(CursoQueryDSLRepositoryTest.cla
 		for (Curso curso : cList) {
 			LOG.info("#CURSO ENCONTRADO:" + curso);
 		}
+		assertTrue(cList.size() > 0);
+		
+	}
+	
+	@Test
+	public void testQueryByNombreHorasPrecio() {
+		String nombre = "andro";
+		int horas = 20;
+		double precio = 0;
+		
+		LOG.info("BUSCAR TODOS LOS CURSOS QUE CONTENGAN:" + nombre + " Y PRECIO IGUAL A:" + precio + " Y HORAS IGUAL A:" + horas);
+		List<Curso> cList = cursoQuerysDSLRepository.findCursosByNombreHorasPrecio(nombre, horas, precio);
+		
+		for (Curso curso : cList) {
+			LOG.info("#CURSO ENCONTRADO:" + curso);
+		}
+		
 		assertTrue(cList.size() > 0);
 		
 	}
